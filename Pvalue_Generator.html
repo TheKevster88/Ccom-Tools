@@ -41,6 +41,9 @@ body {
 }
 </style>
   <script>
+
+ multicast_configure = 0;
+
     function reset_Form() {
   window.location.reload();
   //Resets entire page. 
@@ -49,6 +52,7 @@ function device_Submission() {
 	document.getElementById('keytype_Definitions').style.display='block';
 	document.getElementById('top_form').style.display='block';
 	document.getElementById('registration_Options').style.display='block';
+	document.getElementById('multicast_Form').style.display='block';
 	registration_Hide();
 	line_Range();
 	mpk_Range();
@@ -268,12 +272,12 @@ function mpk_Range() {
 
 function clear_Table() {
 var Table = document.getElementById("the_thing");
-Table.innerHTML = "<tr><td>Key</td><td>Key Type</td><td>Account</td><td>Key Label</td><td>Key Value</td></tr>";
+Table.innerHTML = "<tr><td></td><td>Key Type</td><td>Account</td><td>Key Label</td><td>Key Value</td></tr>";
 }
 
 function clear_Table_Button() {
 var Table = document.getElementById("the_thing");
-Table.innerHTML = "<tr><td>Key</td><td>Key Type</td><td>Account</td><td>Key Label</td><td>Key Value</td></tr>";
+Table.innerHTML = "<tr><td></td><td>Key Type</td><td>Account</td><td>Key Label</td><td>Key Value</td></tr>";
 generate_ui();
 }
 
@@ -285,6 +289,8 @@ function Submit_Output() {
 	secondary_Sip_Output();
 	BLF_Sip_Output();
 	Firmware_Output();
+	document.getElementById("multicast_Pvalues").innerHTML="";
+	multicast_Pvalue_Output()
 	document.getElementById("Pvalues").innerHTML="";
 	form_Pvalue_Output();
 }
@@ -296,12 +302,15 @@ function Submit_Output_XML() {
 	secondary_Sip_Output_XML();
 	BLF_Sip_Output_XML();
 	Firmware_Output_XML();
+	document.getElementById("multicast_Pvalues_XML").innerHTML="";
+	multicast_Pvalue_Output_XML()
 	document.getElementById("Pvalues_XML").innerHTML="";
 	form_Pvalue_Output_XML();
 }
 function sip_Account_Reg_Pvalues() {
 	switch (account_Sip_Selection.value) {
 		case '1':
+			sip_Account_Active = 271;
 			sip_Name_Pvalue = 270;
 			sip_ID_Pvalue = 35;
 			sip_AuthID_Pvalue = 36;
@@ -314,6 +323,7 @@ function sip_Account_Reg_Pvalues() {
 			sip_blf_Pvalue = 2375;
 		break;
 		case "2":
+			sip_Account_Active = 401;
 			sip_Name_Pvalue = 417;
 			sip_ID_Pvalue = 404;
 			sip_AuthID_Pvalue = 405;
@@ -326,6 +336,7 @@ function sip_Account_Reg_Pvalues() {
 			sip_blf_Pvalue = 2475;
 		break;
 		case "3":
+			sip_Account_Active = 501;
 			sip_Name_Pvalue = 517;
 			sip_ID_Pvalue = 504;
 			sip_AuthID_Pvalue = 505;
@@ -338,6 +349,7 @@ function sip_Account_Reg_Pvalues() {
 			sip_blf_Pvalue = 2575;
 		break;
 		case "4":
+			sip_Account_Active = 601;
 			sip_Name_Pvalue = 617;
 			sip_ID_Pvalue = 604;
 			sip_AuthID_Pvalue = 605;
@@ -352,13 +364,26 @@ function sip_Account_Reg_Pvalues() {
 	}
 }
 function sip_Credentials_Output_XML() {
+
+	switch(provision_Server.value) {
+		case 'yes':
+			document.getElementById("config_Server").innerHTML = "&ltP237&gttftp.cytracom.net&lt/P237&gt <br> &ltP212&gt1&lt/P212&gt";
+		break;
+		default:
+		document.getElementById("config_Server").innerHTML = "";
+		break;
+
+	}
+	
+
+
 	account_Name_Output = document.getElementById("account_Name_Input").value;
 	switch (account_Name_Output) {
 		case '':
 			document.getElementById("account_Name_XML").innerHTML = "";
 			break;
 		default:
-			document.getElementById("account_Name_XML").innerHTML = "&ltP" + sip_Name_Pvalue + "&gt" + account_Name_Output + "&lt/P" + sip_Name_Pvalue + "&gt";
+			document.getElementById("account_Name_XML").innerHTML = "&ltP" + sip_Account_Active + "&gt1&lt/P" + sip_Account_Active + "&gt<br>" + "&ltP" + sip_Name_Pvalue + "&gt" + account_Name_Output + "&lt/P" + sip_Name_Pvalue + "&gt";
 			break;
 	}
 	sip_ID_Output = document.getElementById("sip_ID_Input").value;
@@ -447,6 +472,17 @@ function Firmware_Output_XML() {
 					document.getElementById("Firmware_Output_XML").innerHTML = "";
 					break;
 			}
+			switch (D2_WIFI.value) {
+				case 'Yes':
+					document.getElementById("D2_WIFI_Output").innerHTML = "&ltP7800&gt1&lt/P7800&gt";
+					break;
+				case 'No':
+					document.getElementById("D2_WIFI_Output").innerHTML = "&ltP7800&gt0&lt/P7800&gt";
+					break;
+				default:
+					document.getElementById("D2_WIFI_Output").innerHTML = "";
+					break;
+			}
 		break;
 		default:
 			switch (GXP_Firmware.value) {
@@ -460,6 +496,7 @@ function Firmware_Output_XML() {
 					document.getElementById("Firmware_Output_XML").innerHTML = "";
 					break;
 			}
+			document.getElementById("D2_WIFI_Output").innerHTML = "";
 		break;
 	}
 }
@@ -470,7 +507,7 @@ function sip_Credentials_Output() {
 			document.getElementById("account_Name").innerHTML = "";
 			break;
 		default:
-			document.getElementById("account_Name").innerHTML = "P" + sip_Name_Pvalue + "=" + account_Name_Output;
+			document.getElementById("account_Name").innerHTML = "P" + sip_Account_Active + "=1<br>" + "P" + sip_Name_Pvalue + "=" + account_Name_Output;
 			break;
 	}
 	sip_ID_Output = document.getElementById("sip_ID_Input").value;
@@ -559,6 +596,7 @@ function Firmware_Output() {
 					document.getElementById("Firmware_Output").innerHTML = "";
 					break;
 			}
+			
 		break;
 		default:
 			switch (GXP_Firmware.value) {
@@ -616,11 +654,15 @@ function form_Pvalue_Output(){
 
 	for ( i=startMPK; i <= endMPK; i++) {
 		form_Pvalue_Output_Device();
-		pvalue_Account_Output()
-		document.getElementById("Pvalues").innerHTML+= "P" + pvalue1 + "=" + document.getElementById('keytype'+i).value + "<br>";
-		document.getElementById("Pvalues").innerHTML+= "P" + pvalue2 + "=" + post_Account_Output + "<br>";
-		document.getElementById("Pvalues").innerHTML+= "P" + pvalue3 + "=" + document.getElementById('label_'+i).value + "<br>";
-		document.getElementById("Pvalues").innerHTML+= "P" + pvalue4 + "=" + document.getElementById('value_'+i).value + "<br>";
+		pvalue_Account_Output();
+		if (document.getElementById('keytype'+i).value==1 && post_Account_Output==0 && document.getElementById('label_'+i).value=="" && document.getElementById('value_'+i).value=="") {
+			document.getElementById("Pvalues").innerHTML+= "";
+		} else {
+			document.getElementById("Pvalues").innerHTML+= "P" + pvalue1 + "=" + document.getElementById('keytype'+i).value + "<br>";
+			document.getElementById("Pvalues").innerHTML+= "P" + pvalue2 + "=" + post_Account_Output + "<br>";
+			document.getElementById("Pvalues").innerHTML+= "P" + pvalue3 + "=" + document.getElementById('label_'+i).value + "<br>";
+			document.getElementById("Pvalues").innerHTML+= "P" + pvalue4 + "=" + document.getElementById('value_'+i).value + "<br>";
+		}
 	}
 }
 function form_Pvalue_Output_XML(){
@@ -628,11 +670,15 @@ function form_Pvalue_Output_XML(){
 
 	for ( i=startMPK; i <= endMPK; i++) {
 		form_Pvalue_Output_Device();
-		pvalue_Account_Output()
-		document.getElementById("Pvalues_XML").innerHTML+= "&ltP" + pvalue1 + "&gt" + document.getElementById('keytype'+i).value + "&lt/P" + pvalue1 + "&gt" + "<br>";
-		document.getElementById("Pvalues_XML").innerHTML+= "&ltP" + pvalue2 + "&gt" + post_Account_Output + "&lt/P" + pvalue2 + "&gt" + "<br>";
-		document.getElementById("Pvalues_XML").innerHTML+= "&ltP" + pvalue3 + "&gt" + document.getElementById('label_'+i).value + "&lt/P" + pvalue3 + "&gt" + "<br>";
-		document.getElementById("Pvalues_XML").innerHTML+= "&ltP" + pvalue4 + "&gt" + document.getElementById('value_'+i).value + "&lt/P" + pvalue4 + "&gt" + "<br>";
+		pvalue_Account_Output();
+		if (document.getElementById('keytype'+i).value==1 && post_Account_Output==0 && document.getElementById('label_'+i).value=="" && document.getElementById('value_'+i).value=="") {
+			document.getElementById("Pvalues_XML").innerHTML+= "";
+		} else {
+			document.getElementById("Pvalues_XML").innerHTML+= "&ltP" + pvalue1 + "&gt" + document.getElementById('keytype'+i).value + "&lt/P" + pvalue1 + "&gt" + "<br>";
+			document.getElementById("Pvalues_XML").innerHTML+= "&ltP" + pvalue2 + "&gt" + post_Account_Output + "&lt/P" + pvalue2 + "&gt" + "<br>";
+			document.getElementById("Pvalues_XML").innerHTML+= "&ltP" + pvalue3 + "&gt" + document.getElementById('label_'+i).value + "&lt/P" + pvalue3 + "&gt" + "<br>";
+			document.getElementById("Pvalues_XML").innerHTML+= "&ltP" + pvalue4 + "&gt" + document.getElementById('value_'+i).value + "&lt/P" + pvalue4 + "&gt" + "<br>";
+		}
 	}
 }
 function form_Pvalue_Output_Device(){
@@ -694,11 +740,130 @@ function pvalue_output_hide() {
 function pvalue_output_xml_hide() {
 	document.getElementById('pvalue_Output_XML').style.display='none';
 }
+
+function multicast_Show() {
+	document.getElementById('configure_Multicast_Show').style.display='none';
+	document.getElementById('configure_Multicast_Hide').style.display='block';
+	document.getElementById('multicast_Table').style.display='block';
+	multicast_configure = 1;
+	multicast_ui();
+}
+function multicast_Hide() {
+	document.getElementById('configure_Multicast_Show').style.display='block';
+	document.getElementById('configure_Multicast_Hide').style.display='none';
+	document.getElementById('multicast_Table').style.display='none';
+	multicast_configure = 0;
+	
+}
+function multicast_ui() {
+
+var MulticastTable = document.getElementById("multicast_Thing");
+MulticastTable.innerHTML = "<tr><td></td><td>Multicast Label</td><td>Multicast Address</td></tr>";
+   
+    for (let m = 1; m <= 10; m++) {
+	
+     let row = document.createElement("tr");
+	 
+	 let keyName = document.createElement("td");
+     let keyNameText = document.createTextNode("Multicast #" + m + ": ");
+     keyName.setAttribute("id", "Multicast_name" + m);
+     keyName.appendChild(keyNameText);
+     row.appendChild(keyName);
+	 
+     let label = document.createElement("td");
+	 
+     let labelInput = document.createElement("input");
+     label.appendChild(labelInput);
+     labelInput.setAttribute("type", "text");
+     labelInput.setAttribute("id", "multicast_label_" + m);
+     row.appendChild(label);
+
+     let value = document.createElement("td");
+	 
+     let valueInput = document.createElement("input");
+     value.appendChild(valueInput);
+     valueInput.setAttribute("type", "text");
+     valueInput.setAttribute("id", "multicast_address_" + m);
+     row.appendChild(value);
+
+     document.getElementById("multicast_Thing").appendChild(row);
+    }
+	//generate_ui is Jared's contribution to this project for getting started. Account field was added by me in process and keyType field was modified to be number input.
+}
+function multicast_Pvalue_Output() {
+	if (multicast_configure == 1) {
+
+		document.getElementById("multicast_Pvalues").innerHTML+= "P1568=0 <br>"
+		for (let m = 1; m <= 10; m++) {
+			multicast_Address = document.getElementById('multicast_address_'+m).value;
+			multicast_Label =  document.getElementById('multicast_label_'+m).value;
+			
+
+			multicast_Address_Pvalue = 1567+m*2;
+			multicast_Label_Pvalue = 1568+m*2;
+
+			switch (multicast_Address) {
+				case "":
+				document.getElementById("multicast_Pvalues").innerHTML += "";
+				break;
+				default:
+				document.getElementById("multicast_Pvalues").innerHTML+= "P" + multicast_Address_Pvalue + "=" + multicast_Address + "<br>";
+				break;	
+			}
+
+			switch (multicast_Label) {
+				case "":
+				document.getElementById("multicast_Pvalues").innerHTML += "";
+				break;
+				default:
+				document.getElementById("multicast_Pvalues").innerHTML+= "P" + multicast_Label_Pvalue + "=" + multicast_Label + "<br>";
+				break;		
+			}
+		}
+	} else {
+		document.getElementById("multicast_Pvalues").innerHTML += "";
+	}
+}
+function multicast_Pvalue_Output_XML() {
+	if (multicast_configure == 1) {
+
+		document.getElementById("multicast_Pvalues_XML").innerHTML+= "&ltP1568&gt0&lt/P1568&gt <br>"
+		for (let m = 1; m <= 10; m++) {
+			multicast_Address = document.getElementById('multicast_address_'+m).value;
+			multicast_Label =  document.getElementById('multicast_label_'+m).value;
+			
+
+			multicast_Address_Pvalue = 1567+m*2;
+			multicast_Label_Pvalue = 1568+m*2;
+
+			switch (multicast_Address) {
+				case "":
+				document.getElementById("multicast_Pvalues_XML").innerHTML += "";
+				break;
+				default:
+				document.getElementById("multicast_Pvalues_XML").innerHTML+= "&ltP" + multicast_Address_Pvalue + "&gt" + multicast_Address + "&lt/P" + multicast_Address_Pvalue + "&gt" +"<br>";
+				break;	
+			}
+
+			switch (multicast_Label) {
+				case "":
+				document.getElementById("multicast_Pvalues_XML").innerHTML += "";
+				break;
+				default:
+				document.getElementById("multicast_Pvalues_XML").innerHTML+= "&ltP" + multicast_Label_Pvalue + "&gt" + multicast_Label + "&lt/P" + multicast_Label_Pvalue + "&gt" +"<br>";
+				break;		
+			}
+		}
+	} else {
+		document.getElementById("multicast_Pvalues_XML").innerHTML += "";
+	}
+}
   </script>
   
  </head>
  <body class="MainBackground">
  <div >
+	 
 
  <br><br><br>
  <form id="device_Selection">
@@ -773,6 +938,12 @@ Select your Device:
 			<option value="BLF">blf.cytracom.net</option>
 			<option value="Reg">register.cytracom.net</option>
 		</select>
+		<br>
+	Include Provision Server:
+		<select id="provision_Server">
+			<option value="yes">Yes</option>
+			<option value="No">No</option>
+		</select>
 </form>
 
 <form id="GXP_Firmware_Select" style="display:none">
@@ -792,14 +963,35 @@ Select your Device:
 		<option value="5.45">1.0.5.45</option>
 		<option value="1.13">1.0.1.13</option>
 	</select>
+	<br/> <br/>
+	Wifi:
+	<select id="D2_WIFI">
+		<option value="None">None</option>
+		<option value="Yes">Yes</option>
+		<option value="No">No</option>
+	</select>
+</form>
+
+<form id="multicast_Form" style="display:none">
+<input type="button" id="configure_Multicast_Show" value="Configure Multicast Listening" onclick="multicast_Show()">
+<input type="button" id="configure_Multicast_Hide" value="Hide Multicast Listening" onclick="multicast_Hide()" style="display:none">
+</form>
+
+<form id="multicast_Table" style="display:none">
+<table id="multicast_Thing">
+    <tr>
+     <td>Multicast</td>
+	 <td>Multicast Label</td>
+	 <td>Multicast Address</td>
+    </tr>
+   </table>
 </form>
 
 <form id="keytype_Definitions" style="display:none">
 <input type="button" id="keytype_Show_Button" value="Show KeyType Definitions" onclick="keytype_Show()">
 <input type="button" id="keytype_Hide_Button" value="Hide KeyType Definitions" onclick="keytype_Hide()" style="display:none">
-
-
 </form>
+
 
 <div class="keytype_Definitions" id="keytype_Definitions_List" style="display:none">
 <ul>
@@ -809,7 +1001,7 @@ Select your Device:
 <li> 2 = Presence Watcher</li>
 <li> 3 = Eventlist BLF</li>
 <li> 4 = Speed Dial via active account</li>
-<li> 5 = Dial DTMF</li>
+<li> 5 = Dial DTMF (*66&ltalias&gt*)</li>
 <li> 6 = Voice Mail</li>
 <li> 7 = Call Return</li>
 <li> 8 = Transfer</li>
@@ -837,18 +1029,30 @@ Select your Device:
   <form id="mpk_List">
    <table id="the_thing">
     <tr>
-     <td>Key</td>
+     <td></td>
      <td>Key Type</td>
 	 <td>Account</td>
      <td>Key Label</td>
      <td>Key Value</td>
     </tr>
    </table>
-   <button type="button" onclick="Submit_Output()">Submit</button>
-   <button type="button" onclick="Submit_Output_XML()">Submit (XML Format)</button>
+   <table>
+	   <tr>
+		   <td> <button type="button" onclick="Submit_Output()">Submit</button></td>
+		   <td> <button type="button" onclick="pvalue_output_hide()">Clear Pvalues</button></td>
+	   </tr>
+	   <tr>
+		<td><button type="button" onclick="Submit_Output_XML()">Submit (XML Format)</button></td>
+		<td><button type="button" onclick="pvalue_output_xml_hide()">Clear Pvalues (XML Format)</button></td>
+	   </tr>
+	   <tr>
+		   <td><button type="button" value="Download_XML">Download XML Output</button></td>
+	   </tr>
+  </table>
+   
    <br>
-   <button type="button" onclick="pvalue_output_hide()">Clear Pvalues</button>
-   <button type="button" onclick="pvalue_output_xml_hide()">Clear Pvalues (XML Format)</button>
+  
+  
    
    
   </form>
@@ -863,6 +1067,7 @@ Select your Device:
 <p id="Seconary_Registration_Output"></p>
 <p id="BLF_Output"></p>
 <p id="Firmware_Output"></p>
+<p id="multicast_Pvalues"></p>
 <p id="Pvalues"></p>
 </div>
 
@@ -871,6 +1076,7 @@ Select your Device:
 <h3>Copy and save these pvalues as an xml file</h3>
 <p>&ltgs_provision&gt</p>
 <p>&ltconfig version="1"&gt</p>
+<p id="config_Server"></p>
 <p id="account_Name_XML"></p>
 <p id="sip_ID_XML"></p>
 <p id="sip_Password_XML"></p>
@@ -878,6 +1084,8 @@ Select your Device:
 <p id="Seconary_Registration_Output_XML"></p>
 <p id="BLF_Output_XML"></p>
 <p id="Firmware_Output_XML"></p>
+<p id="D2_WIFI_Output"></p>
+<p id="multicast_Pvalues_XML"></p>
 <p id="Pvalues_XML"></p>
 <p>&lt/config&gt</p>
 <p>&lt/gs_provision&gt</p>
