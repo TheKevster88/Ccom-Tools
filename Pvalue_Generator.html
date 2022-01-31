@@ -858,6 +858,35 @@ function multicast_Pvalue_Output_XML() {
 		document.getElementById("multicast_Pvalues_XML").innerHTML += "";
 	}
 }
+function download(file, text) {
+              
+	//creating an invisible element
+	var element = document.createElement('a');
+	element.setAttribute('href', 
+	'data:text/plain;charset=utf-8, '
+	+ encodeURIComponent(text));
+	element.setAttribute('download', file);
+
+	// Above code is equivalent to
+	// <a href="path of file" download="file name">
+
+	document.body.appendChild(element);
+
+	//onClick property
+	element.click();
+
+	document.body.removeChild(element);
+}
+
+// Start file download.
+function download_XML_File() {
+	// Generate download of hello.txt 
+	// file with some content
+	var text = document.getElementById("XML_Download_Content").innerText;
+	var filename = "Config.xml";
+
+	download(filename, text);
+}
   </script>
   
  </head>
@@ -1046,7 +1075,7 @@ Select your Device:
 		<td><button type="button" onclick="pvalue_output_xml_hide()">Clear Pvalues (XML Format)</button></td>
 	   </tr>
 	   <tr>
-		   <td><button type="button" value="Download_XML">Download XML Output</button></td>
+		   <td><button type="button" onclick="download_XML_File()" value="Download_XML">Download XML Output</button></td>
 	   </tr>
   </table>
    
@@ -1074,6 +1103,7 @@ Select your Device:
 <div class="Output" style="display:none" id="pvalue_Output_XML">
 <h2>Pvalue XML Output</h2>
 <h3>Copy and save these pvalues as an xml file</h3>
+<div id="XML_Download_Content">
 <p>&ltgs_provision&gt</p>
 <p>&ltconfig version="1"&gt</p>
 <p id="config_Server"></p>
@@ -1090,6 +1120,11 @@ Select your Device:
 <p>&lt/config&gt</p>
 <p>&lt/gs_provision&gt</p>
 </div>
+</div>
+
+
+
+</textarea>
 
 </div>
  </body>
