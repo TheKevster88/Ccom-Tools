@@ -1,0 +1,71 @@
+<html>
+ <head>
+<link rel="stylesheet" href="PageStyles.css">
+<script src="Callcenter_Functions.js"></script>
+</head>
+ <body class="MainBackground">
+  <!-- this defines the current style of the page. Need to learn CSS to make things look less crap. -->
+<div class="topnav">
+  <a href="./Menu.html">Home</a>
+  <a href="./Pvalue_Generator.html">PValue Generator</a>
+  <a class="active"href="./Queuecallmetrics.html">Queue Call Metrics</a>
+</div>
+
+
+
+<div>
+<br><br><br>
+<h2>Agent Baseline Input</h2>
+<form onchange="Baseline_Input_Submission()">
+Tier 1 Agents
+<input type="number" id="Tier1Count" value="1">
+Minimum weekly calls
+<input type="number" id="Tier1MinimumCallsInput" value="85">
+<br>
+Tier 2 Agents
+<input type="number" id="Tier2Count" value="1">
+Minimum weekly calls
+<input type="number" id="Tier2MinimumCallsInput" value="35">
+<br>
+Tier 3 Agents
+<input type="number" id="Tier3Count" value="1">
+Minimum weekly calls
+<input type="number" id="Tier3MinimumCallsInput" value="25">
+<br>
+<input type="button" value="Submit Tier Baselines" onclick = "Baseline_Input_Submission()">
+</form>
+</div>
+
+
+<div id="call_Output" style="display:none" >
+<h2>Total Weekly Calls</h2>
+<p id="total_Calls_Output"></p>
+<p id="tier1_Total_Display"></p>
+<p id="tier2_Total_Display"></p>
+<p id="tier3_Total_Display"></p>
+<input type="button" value="Follow Up Information" onclick="follow_Up();">
+</div>
+
+<div id="follow_Up_Question" style="display:none">
+<br><br>
+<h2>Follow Up</h2>
+<p id="follow_Up_Question_Displayed"></p>
+<input type="button" value="No" onclick="follow_Up_False()">
+<input type="button" value="Yes" onclick="follow_Up_True()">
+</div>
+<div id="follow_Up_True" style="display:none">
+<p>You chose Yes.</p>
+<p>Great! The Stats posted in "Total Weekly Calls" are accurate.</p>
+</div>
+<div id="follow_Up_False" style="display:none">
+<p>You chose No.</p>
+<form>
+How many Queue calls were there last week?
+<input type="number" value="1" id="follow_Up_Question_Input">
+<input type="button" value="submit" onclick="follow_Up_Question_Input_Submission()">
+<p id="Tier1_Follow_Up_Output"></p>
+<p id="Tier2_Follow_Up_Output"></p>
+<p id="Tier3_Follow_Up_Output"></p>
+</form>
+</div>
+</body>

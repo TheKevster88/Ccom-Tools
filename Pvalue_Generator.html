@@ -1,0 +1,152 @@
+<html>
+ <head>
+<link rel="stylesheet" href="PageStyles.css">
+  <script src="Pvalue_Generator_Javascript.js"></script>
+  
+ </head>
+ <body class="MainBackground">
+  <!-- this defines the current style of the page. Need to learn CSS to make things look less crap. -->
+<div class="topnav">
+  <a href="./Menu.html">Home</a>
+  <a class="active" href="./Pvalue_Generator.html">PValue Generator</a>
+  <a href="./Queuecallmetrics.html">Queue Call Metrics</a>
+</div>
+ <div >
+
+ <br><br><br>
+ <form id="device_Selection">
+Select your Device:
+<select id="myDevice"  onchange="device_Submission()">
+  <option value="2130">GXP 2130</option>
+  <option value="2140">GXP 2140</option>
+  <option value="2160">GXP 2160</option>
+  <option value="D2">Cytracom D2</option>
+</select>
+<input type="button"  value="Submit Device Selection" onclick="device_Submission()">
+<input type="button"  onclick="clear_Table_Button()" value="reset Form">
+<input type="button" onclick="reset_Form()" value="reset Page">
+
+</form>
+
+<form id="sidecar_Selection" onchange="device_Submission()" style="display:none">
+	Select the sidecar:
+		<select id="mySidecar">
+			<option value="1">Sidecar 1</option>
+			<option value="2">Sidecar 2</option>
+			<option value="3">Sidecar 3</option>
+			<option value="4">Sidecar 4</option>
+			<option value="5">Sidecar 5</option>
+		</select>
+	<input type="button" value="Update Sidecar Selection" onclick="device_Submission()">
+</form>
+
+<form id="registration_Servers" style="display:block">
+	Primary Registration:
+		<select id="primary_Registration">
+			<option value="UDP5060">UDP:5060 register.cytracom.net</option>
+			<option value="UDP5062">UDP:5062 register.cytracom.net</option>
+			<option value="TCP5060">TCP:5060 register.cytracom.net</option>
+			<option value="None">None</option>
+		</select>
+	Secondary:
+		<select id="secondary_Registration">
+			<option value="KR1">kr1.cytracom.net</option>
+			<option value="Register5060">Register.cytracom.net:5060</option>
+			<option value="Register5062">Register.cytracom.net:5062</option>
+			<option value="None">None</option>
+		</select>
+	BLF Server:
+		<select id="blf_Registration">
+			<option value="BLF">blf.cytracom.net</option>
+			<option value="Reg">register.cytracom.net</option>
+			<option value="None">None</option>
+		</select>
+</form>
+
+<form id="GXP_Firmware_Select" style="display:none">
+	Choose GXP Firmware:
+	<select id="GXP_Firmware">
+		<option value="11.48">1.0.11.48</option>
+		<option value="11.10">1.0.11.10</option>
+		<option value="Nonr">None</option>
+	</select>
+</form>
+<form id="D2_Firmware_Select" style="display:none">
+	Choose D2 Firmware:
+	<select id="D2_Firmware">
+		<option value="5.65">1.0.5.65</option>
+		<option value="5.48">1.0.5.48</option>
+		<option value="5.45">1.0.5.45</option>
+		<option value="1.13">1.0.1.13</option>
+		<option value="None">None</option>
+	</select>
+</form>
+
+<form id="keytype_Definitions" style="display:none">
+<input type="button" id="keytype_Show_Button" value="Show KeyType Definitions" onclick="keytype_Show()">
+<input type="button" id="keytype_Hide_Button" value="Hide KeyType Definitions" onclick="keytype_Hide()" style="display:none">
+
+
+</form>
+
+<div class="keytype_Definitions" id="keytype_Definitions_List" style="display:none">
+<ul>
+<li>-1 = None </li>
+<li> 0 = Speed Dial </li>
+<li> 1 = BLF</li>
+<li> 2 = Presence Watcher</li>
+<li> 3 = Eventlist BLF</li>
+<li> 4 = Speed Dial via active account</li>
+<li> 5 = Dial DTMF</li>
+<li> 6 = Voice Mail</li>
+<li> 7 = Call Return</li>
+<li> 8 = Transfer</li>
+<li> 9 = Call Park</li>
+<li>10 = Intercom</li>
+<li>11 = LDAP Search</li>
+<li>12 = Conference</li>
+<li>13 = Multicast Paging</li>
+<li>14 = Record</li>
+<li>15 = Call Log</li>
+<li>16 = Monitored Call Park</li>
+<li>17 = Menu</li>
+<li>18 = XML Application</li>
+<li>19 = Information</li>
+<li>20 = Message</li>
+</ul>
+</div>
+	
+<input type="button" id="lock_Account_Button" value="Lock Account Dropdown" onclick="account_Lock()" style="display:none">
+<input type="button" id="unlock_Account_Button" value="Unlock Account Dropdown" onclick="account_Unlock()" style="display:none">
+<!-- -->
+
+<div class="mpk_List_Class" style="display:none" id="top_form">
+
+  <form id="mpk_List">
+   <table id="the_thing">
+    <tr>
+     <td>Key</td>
+     <td>Key Type</td>
+	 <td>Account</td>
+     <td>Key Label</td>
+     <td>Key Value</td>
+    </tr>
+   </table>
+   <button type="button" onclick="Submit_Output()">Submit</button>
+   
+  </form>
+</div>
+<!-- Table that displays MPK keys -->
+<div class="Output" style="display:none" id="pvalue_Output">
+<h2>PValue Output</h2>
+<p id="primary_Registration_Output"></p>
+<p id="Seconary_Registration_Output"></p>
+<p id="BLF_Output"></p>
+<p id="Firmware_Output"></p>
+<p id="test_Table"></p>
+<p id="Pvalues"></p>
+</div>
+
+</div>
+ </body>
+</html>
