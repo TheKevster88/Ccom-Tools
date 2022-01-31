@@ -1,0 +1,322 @@
+<html>
+ <head>
+      <script type="text/javascript" src="js/lib/jquery-1.11.1.min.js" ></script>
+   <script> 
+     $(function(){ $("head").load("header.html") });
+   </script>
+  <script>
+
+  function reset_Form() {
+  window.location.reload();
+  //Resets entire page. 
+}
+
+function device_Submission() {
+	document.getElementById('top_form').style.display='block';
+	line_Range();
+	mpk_Range();
+	clear_Table();
+	device_Change_Update();
+	generate_ui();
+
+	//Calls multiple functions to unhide the table form and generates the keys.
+	//Clear table function has to be right before the generate_ui function or the keys will populate twice. 
+}
+
+function device_Submission_Alert() {
+      prefer = document.forms[0].myDevice.value;
+	  
+	  switch (myDevice.value) {
+		case 'D2':
+			prefix="Cytracom ";
+			break;
+		default:
+			prefix="GXP ";
+			break;
+		}
+   alert("You chose " + prefix + prefer);
+   
+   //This gives an alert in the browser saying you selected x device
+   //This function is currently not being used
+}
+
+function sidecar_Selection_Function() {
+	Sidecar_select = document.forms[1].mySidecar.value;
+	alert("You chose sidecar " + Sidecar_select);
+}
+
+function device_Change_Update (){
+	switch (myDevice.value) {
+		case '2140':
+			document.getElementById('sidecar_Selection').style.display='block';
+			break;
+		default:
+			document.getElementById('sidecar_Selection').style.display='none';
+			break;
+		break;
+}		
+
+//When you click down and click on a different device, if you clicked on GXP 2140, the sidecar dropdown menu will appear.
+//When changing to a different device other than the GXP 2140, the sidecar menu will dissappear. 
+}
+
+function line_Range() {
+	switch (myDevice.value) {
+		case '2100':
+			endLine=4;
+			break;
+		case '2110':
+			endLine=4;
+			break;
+		case '2120':
+			endLine=6;
+			break;
+		case '2124':
+			endLine=4;
+			break;
+		case '2130':
+			endLine=3;
+			break;
+		case '2140':
+			endLine=4;
+			break;
+		case '2160':
+			endLine=6;
+			break;
+		case 'D2':
+			endLine=4;
+			break;
+		}
+}
+function mpk_Range() {
+   switch (myDevice.value) {
+    case '2100':
+		startMPK=1;
+		endMPK=7;
+		break;
+	case '2110':
+		startMPK=1;
+		endMPK=18;
+		break;
+	case '2120':
+		startMPK=1;
+		endMPK=7;
+		break;
+	case '2124':
+		startMPK=1;
+		endMPK=24;
+	case '2130':
+		startMPK=1;
+		endMPK=8;
+		break;
+	case '2140':
+		switch (mySidecar.value) {
+			case '1':
+			startMPK=1;
+			endMPK=40;
+			break;
+			case '2':
+			startMPK=41;
+			endMPK=80;
+			break;
+			case '3':
+			startMPK=81;
+			endMPK=120;
+			break;
+			case '4':
+			startMPK=121;
+			endMPK=160;
+			break;
+			case '5':
+			startMPK=161;
+			endMPK=200;
+			break;
+			}
+		break;
+	case '2160':
+		startMPK=1;
+		endMPK=24;
+		break;
+	case 'D2':
+		startMPK=1;
+		endMPK=24;
+		break;
+		}
+
+generate_ui();
+//Defines the range for the mpks keys for the mpk form to generate.
+}
+ 
+   function generate_ui() {
+
+
+
+   
+
+	
+
+
+   
+
+   
+    for (let i = startMPK; i <= endMPK; i++) {
+	
+     let row = document.createElement("tr");
+
+     let keyName = document.createElement("td");
+     let keyNameText = document.createTextNode("MPK #" + i + ": ");
+     keyName.setAttribute("name", "key_name" + i);
+     keyName.appendChild(keyNameText);
+     row.appendChild(keyName);
+
+     let keyType = document.createElement("td");
+     let keyTypeDropdown = document.createElement("select");
+	 
+	 let accountType = document.createElement("td");
+	 let accountTypeDropdown = document.createElement("select");
+	 
+
+	
+		
+	 
+	 
+     for (let x = -1; x <= 20; x++) {
+	 
+      let option = document.createElement("option");
+      option.setAttribute("value", x);
+      let optionLabel = document.createTextNode("keytype number " + x);
+      option.appendChild(optionLabel);
+      keyTypeDropdown.appendChild(option);
+     }
+	 
+     keyTypeDropdown.setAttribute("name", "key_type_" + i);
+     keyType.appendChild(keyTypeDropdown);
+     row.appendChild(keyType);
+
+
+     for (let j = 1; j <= endLine; j++) {
+      let option = document.createElement("option");
+      option.setAttribute("value", j);
+      let optionLabel = document.createTextNode("Account " + j);
+      option.appendChild(optionLabel);
+      accountTypeDropdown.appendChild(option);
+     }
+	 
+     accountTypeDropdown.setAttribute("Account", "Account_" + i);
+     accountType.appendChild(accountTypeDropdown);
+     row.appendChild(accountType);
+	 
+	 
+     let label = document.createElement("td");
+	 
+     let labelInput = document.createElement("input");
+     label.appendChild(labelInput);
+     labelInput.setAttribute("type", "text");
+	 labelInput.setAttribute("Account", "text");
+     labelInput.setAttribute("name", "label_" + i);
+     row.appendChild(label);
+
+     let value = document.createElement("td");
+	 
+     let valueInput = document.createElement("input");
+     value.appendChild(valueInput);
+     valueInput.setAttribute("type", "text");
+	 valueInput.setAttribute("Account", "text");
+     valueInput.setAttribute("name", "value_" + i);
+     row.appendChild(value);
+
+     document.getElementById("the_thing").appendChild(row);
+    }
+	//generate_ui is Jared's contribution to this project for getting started. Account field was added by me in process.
+}
+
+function clear_Table() {
+var Table = document.getElementById("the_thing");
+Table.innerHTML = "";
+}
+
+function clear_Table_Button() {
+var Table = document.getElementById("the_thing");
+Table.innerHTML = "";
+generate_ui();
+}
+
+function Submit_Output() {
+	document.getElementById('pvalue_Output').style.display='block';
+}
+
+function Account_Lock() {
+	 $('select[id=device_Selection"]').prop('disabled',true);
+}	
+
+  </script>
+  
+
+ </head>
+ <body>
+ 
+<div class="head"></div>
+ 
+ <div style = "background: lightblue;">
+ <!-- this defines the current style of the page. Need to learn CSS to make things look less crap. -->
+ 
+ <form id="device_Selection">
+Select your Device:
+<select id="myDevice"  onchange="device_Submission()">
+  <option value="2100">GXP 2100</option>
+  <option value="2110">GXP 2110</option>
+  <option value="2120">GXP 2120</option>
+  <option value="2124">GXP 2124</option>
+  <option value="2130">GXP 2130</option>
+  <option value="2140">GXP 2140</option>
+  <option value="2160">GXP 2160</option>
+  <option value="D2">Cytracom D2</option>
+</select>
+<input type="button"  value="Submit Device Selection" onclick="device_Submission()">
+<input type="button"  onclick="clear_Table_Button()" value="reset Form">
+<input type="button" onclick="reset_Form()" value="reset Page">
+
+
+</form>
+
+<form id="sidecar_Selection" style="display:none">
+	Select the sidecar:
+		<select id="mySidecar">
+			<option value="1">Sidecar 1</option>
+			<option value="2">Sidecar 2</option>
+			<option value="3">Sidecar 3</option>
+			<option value="4">Sidecar 4</option>
+			<option value="5">Sidecar 5</option>
+		</select>
+	<input type="button" value="Update Sidecar Selection" onclick="device_Submission()">
+</form>
+
+
+<!-- -->
+<input type="button" onclick="Account_Lock()" value="Lock account">
+
+<!-- -->
+
+<div class="mpk_List_Class" style="display:none" id="top_form">
+  <form id="mpk_List">
+   <table id="the_thing">
+    <tr>
+     <td>Key</td>
+     <td>Key Type</td>
+	 <td>Account</td>
+     <td>Key Label</td>
+     <td>Key Value</td>
+    </tr>
+   </table>
+   <button type="button" onclick="Submit_Output()">Submit</button>
+  </form>
+</div>
+<!-- Table that displays MPK keys -->
+
+<div class="Output" style="display:none" id="pvalue_Output">
+<h2>PValue Output</h2>
+<p>test output</p>
+</div>
+</div>
+ </body>
+</html>
