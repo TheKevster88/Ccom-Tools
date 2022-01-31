@@ -143,7 +143,7 @@ Select your Device:
 	
 <input type="button" id="lock_Account_Button" value="Lock Account Dropdown" onclick="account_Lock()" style="display:none">
 <input type="button" id="unlock_Account_Button" value="Unlock Account Dropdown" onclick="account_Unlock()" style="display:none">
-<!-- -->
+
 
 <div class="mpk_List_Class" style="display:none" id="top_form">
 
@@ -159,6 +159,10 @@ Select your Device:
    </table>
    <button type="button" onclick="Submit_Output()">Submit</button>
    <button type="button" onclick="Submit_Output_XML()">Submit (XML Format)</button>
+   <br>
+   <button type="button" onclick="pvalue_output_hide()">Clear Pvalues</button>
+   <button type="button" onclick="pvalue_output_xml_hide()">Clear Pvalues (XML Format)</button>
+   
    
   </form>
 </div>
@@ -179,7 +183,7 @@ Select your Device:
 <h2>Pvalue XML Output</h2>
 <h3>Copy and save these pvalues as an xml file</h3>
 <p>&ltgs_provision&gt</p>
-<p>&ltconfig&gt</p>
+<p>&ltconfig version="1"&gt</p>
 <p id="account_Name_XML"></p>
 <p id="sip_ID_XML"></p>
 <p id="sip_Password_XML"></p>
@@ -187,6 +191,7 @@ Select your Device:
 <p id="Seconary_Registration_Output_XML"></p>
 <p id="BLF_Output_XML"></p>
 <p id="Firmware_Output_XML"></p>
+<p id="Provision_Server"</p>
 <p id="Pvalues_XML"></p>
 <p>&lt/config&gt</p>
 <p>&lt/gs_provision&gt</p>

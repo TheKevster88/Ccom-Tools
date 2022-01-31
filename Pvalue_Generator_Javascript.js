@@ -6,7 +6,7 @@ function device_Submission() {
 	document.getElementById('keytype_Definitions').style.display='block';
 	document.getElementById('top_form').style.display='block';
 	document.getElementById('registration_Options').style.display='block';
-	registration_Hide()
+	registration_Hide();
 	line_Range();
 	mpk_Range();
 	clear_Table();
@@ -353,6 +353,7 @@ function primary_Sip_Output_XML() {
 			document.getElementById("primary_Registration_Output_XML").innerHTML = "";
 			break;
 	}
+	document.getElementById("Provision_Server").innerHTML = "&ltP237&gttftp.cytracom.net&ltP/237&gt<br>&ltP212&gt1&ltP/212&gt";
 }
 
 function secondary_Sip_Output_XML() {
@@ -644,4 +645,10 @@ function form_Pvalue_Output_Device_GXPD2() {
 function pvalue_Account_Output() {
 	pre_Account_Output = document.getElementById('account_'+i).value;
 	post_Account_Output = pre_Account_Output - 1;
+}
+function pvalue_output_hide() {
+	document.getElementById('pvalue_Output').style.display='none';
+}
+function pvalue_output_xml_hide() {
+	document.getElementById('pvalue_Output_XML').style.display='none';
 }
