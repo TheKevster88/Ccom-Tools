@@ -1,9 +1,35 @@
 <html>
  <head>
-      <script type="text/javascript" src="js/lib/jquery-1.11.1.min.js" ></script>
-   <script> 
-     $(function(){ $("head").load("header.html") });
-   </script>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
   <script>
 
   function reset_Form() {
@@ -12,7 +38,18 @@
 }
 
 function device_Submission() {
+	document.getElementById('keytype_Definitions').style.display='block';
 	document.getElementById('top_form').style.display='block';
+	switch (myDevice.value) {
+		case 'D2':
+			document.getElementById('D2_Firmware_Select').style.display='block';
+			document.getElementById('GXP_Firmware_Select').style.display='none';
+			break;
+		default:
+			document.getElementById('D2_Firmware_Select').style.display='none';
+			document.getElementById('GXP_Firmware_Select').style.display='block';
+			break;
+	}
 	line_Range();
 	mpk_Range();
 	clear_Table();
@@ -148,16 +185,6 @@ generate_ui();
 }
  
    function generate_ui() {
-
-
-
-   
-
-	
-
-
-   
-
    
     for (let i = startMPK; i <= endMPK; i++) {
 	
@@ -172,14 +199,7 @@ generate_ui();
      let keyType = document.createElement("td");
      let keyTypeDropdown = document.createElement("select");
 	 
-	 let accountType = document.createElement("td");
-	 let accountTypeDropdown = document.createElement("select");
-	 
 
-	
-		
-	 
-	 
      for (let x = -1; x <= 20; x++) {
 	 
       let option = document.createElement("option");
@@ -192,15 +212,19 @@ generate_ui();
      keyTypeDropdown.setAttribute("name", "key_type_" + i);
      keyType.appendChild(keyTypeDropdown);
      row.appendChild(keyType);
-
+	 
+	 
+	 let accountType = document.createElement("td");
+	 let accountTypeDropdown = document.createElement("select");
 
      for (let j = 1; j <= endLine; j++) {
-      let option = document.createElement("option");
-      option.setAttribute("value", j);
-      let optionLabel = document.createTextNode("Account " + j);
-      option.appendChild(optionLabel);
-      accountTypeDropdown.appendChild(option);
+      let Account= document.createElement("option");
+      Account.setAttribute("value", j);
+      let accountLabel = document.createTextNode("Account " + j);
+      Account.appendChild(accountLabel);
+      accountTypeDropdown.appendChild(Account);
      }
+	 
 	 
      accountTypeDropdown.setAttribute("Account", "Account_" + i);
      accountType.appendChild(accountTypeDropdown);
@@ -243,20 +267,122 @@ generate_ui();
 
 function Submit_Output() {
 	document.getElementById('pvalue_Output').style.display='block';
+	primary_Sip_Output();
+	secondary_Sip_Output();
+	BLF_Sip_Output();
+	Firmware_Output();
+}
+function primary_Sip_Output() {
+	switch (primary_Registration.value) {
+		case 'UDP5060':
+			document.getElementById("primary_Registration_Output").innerHTML = "P130=0<br>P2329=1<br>P47=register.cytracom.net<br>P40=5060";
+			break;
+		case 'UDP5062':
+			document.getElementById("primary_Registration_Output").innerHTML = "P130=0<br>P2329=1<br>P47=register.cytracom.net:5062<br>P40=5062";
+			break;
+		case 'TCP5060':
+			document.getElementById("primary_Registration_Output").innerHTML = "P130=1<br>P2329=0<br>P47=register.cytracom.net<br>P40=5060";
+			break;
+		default:
+			document.getElementById("primary_Registration_Output").innerHTML = "";
+			break;
+	}
 }
 
-function Account_Lock() {
-	 $('select[id=device_Selection"]').prop('disabled',true);
-}	
-
+function secondary_Sip_Output() {
+	switch (secondary_Registration.value) {
+		case 'Register5060':
+			document.getElementById("Seconary_Registration_Output").innerHTML = "P2312=register.cytracom.net";
+			break;
+		case 'Register5062':
+			document.getElementById("Seconary_Registration_Output").innerHTML = "P2312=register.cytracom.net:5062";
+			break;
+		case 'KR1':
+			document.getElementById("Seconary_Registration_Output").innerHTML = "P2312=kr1.cytracom.net";
+			break;
+		default:
+			document.getElementById("Seconary_Registration_Output").innerHTML = "";
+			break;
+	}
+}
+function BLF_Sip_Output() {
+	switch (blf_Registration.value){
+		case 'BLF':
+			document.getElementById("BLF_Output").innerHTML = "P2375=blf.cytracom.net";
+			break;
+		case 'Reg':
+			document.getElementById("BLF_Output").innerHTML = "P2375=register.cytracom.net";
+			break;
+		default:
+			document.getElementById("BLF_Output").innerHTML = "";
+			break;
+		}
+}
+function Firmware_Output() {
+	switch (myDevice.value) {
+		case 'D2':
+			switch (D2_Firmware.value) {
+				case '5.65':
+					document.getElementById("Firmware_Output").innerHTML = "P192=fw.cytracom.com/D2/5-65";
+					break;
+				case '5.48':
+					document.getElementById("Firmware_Output").innerHTML = "P192=fw.cytracom.com/D2/5-48";
+					break;
+				case '5.45':
+					document.getElementById("Firmware_Output").innerHTML = "P192=fw.cytracom.com/D2/5-45";
+					break;
+				case '1.13':
+					document.getElementById("Firmware_Output").innerHTML = "P192=fw.cytracom.com/D2/1-13";
+					break;
+				default:
+					document.getElementById("Firmware_Output").innerHTML = "";
+					break;
+			}
+		break;
+		default:
+			switch (GXP_Firmware.value) {
+				case '11.48':
+					document.getElementById("Firmware_Output").innerHTML = "P192=fw.cytracom.com/GXP/11-48";
+					break;
+				case '11.10':
+					document.getElementById("Firmware_Output").innerHTML = "P192=fw.cytracom.com/GXP/11-10";
+					break;
+				default:
+					document.getElementById("Firmware_Output").innerHTML = "";
+					break;
+			}
+		break;
+	}
+}
+function keytype_Show() {
+	document.getElementById('keytype_Definitions_List').style.display='block';
+	document.getElementById('keytype_Show_Button').style.display='none';
+	document.getElementById('keytype_Hide_Button').style.display='block';
+}
+function keytype_Hide() {
+	document.getElementById('keytype_Definitions_List').style.display='none';
+	document.getElementById('keytype_Hide_Button').style.display='none';
+	document.getElementById('keytype_Show_Button').style.display='block';
+}
+function account_Lock() {
+	document.getElementById("blf_Registration").disabled = true;
+	document.getElementById('lock_Account_Button').style.display='none';
+	document.getElementById('unlock_Account_Button').style.display='block';
+	AccountLock=true;
+}
+function account_Unlock() {
+	document.getElementById("blf_Registration").disabled = false;
+	document.getElementById('lock_Account_Button').style.display='none';
+	document.getElementById('unlock_Account_Button').style.display='none';
+	AccountLock=false;
+}
   </script>
-  
-
  </head>
  <body>
- 
-<div class="head"></div>
- 
+<div class="topnav">
+  <a href="./Menu.html">Home</a>
+  <a class="active" href="./Pvalue_Generator.html">PValue Generator</a>
+</div>
  <div style = "background: lightblue;">
  <!-- this defines the current style of the page. Need to learn CSS to make things look less crap. -->
  
@@ -276,7 +402,6 @@ Select your Device:
 <input type="button"  onclick="clear_Table_Button()" value="reset Form">
 <input type="button" onclick="reset_Form()" value="reset Page">
 
-
 </form>
 
 <form id="sidecar_Selection" style="display:none">
@@ -291,10 +416,84 @@ Select your Device:
 	<input type="button" value="Update Sidecar Selection" onclick="device_Submission()">
 </form>
 
+<form id="registration_Servers" style="display:block">
+	Primary Registration:
+		<select id="primary_Registration">
+			<option value="UDP5060">UDP:5060 register.cytracom.net</option>
+			<option value="UDP5062">UDP:5062 register.cytracom.net</option>
+			<option value="TCP5060">TCP:5060 register.cytracom.net</option>
+			<option value="None">None</option>
+		</select>
+	Secondary:
+		<select id="secondary_Registration">
+			<option value="Register5060">Register.cytracom.net:5060</option>
+			<option value="Register5062">Register.cytracom.net:5062</option>
+			<option value="KR1">kr1.cytracom.net</option>
+			<option value="None">None</option>
+		</select>
+	BLF Server:
+		<select id="blf_Registration">
+			<option value="BLF">blf.cytracom.net</option>
+			<option value="Reg">register.cytracom.net</option>
+			<option value="None">None</option>
+		</select>
+</form>
 
-<!-- -->
-<input type="button" onclick="Account_Lock()" value="Lock account">
+<form id="GXP_Firmware_Select" style="display:none">
+	Choose GXP Firmware:
+	<select id="GXP_Firmware">
+		<option value="11.48">1.0.11.48</option>
+		<option value="11.10">1.0.11.10</option>
+		<option value="Nonr">None</option>
+	</select>
+</form>
+<form id="D2_Firmware_Select" style="display:none">
+	Choose D2 Firmware:
+	<select id="D2_Firmware">
+		<option value="5.65">1.0.5.65</option>
+		<option value="5.48">1.0.5.48</option>
+		<option value="5.45">1.0.5.45</option>
+		<option value="1.13">1.0.1.13</option>
+		<option value="None">None</option>
+	</select>
+</form>
 
+<form id="keytype_Definitions" style="display:none">
+<input type="button" id="keytype_Show_Button" value="Show KeyType Definitions" onclick="keytype_Show()">
+<input type="button" id="keytype_Hide_Button" value="Hide KeyType Definitions" onclick="keytype_Hide()" style="display:none">
+
+
+</form>
+
+<div id="keytype_Definitions_List" style="display:none">
+<ul>
+<li>-1 = None </li>
+<li>0 = Speed Dial </li>
+<li>1 = BLF</li>
+<li>2 = Presence Watcher</li>
+<li>3 = Eventlist BLF</li>
+<li>4 = Speed Dial via active account</li>
+<li>5 = Dial DTMF</li>
+<li>6 = Voice Mail</li>
+<li>7 = Call Return</li>
+<li>8 = Transfer</li>
+<li>9 = Call Park</li>
+<li>10 = Intercom</li>
+<li>11 = LDAP Search</li>
+<li>12 = Conference</li>
+<li>13 = Multicast Paging</li>
+<li>14 = Record</li>
+<li>15 = Call Log</li>
+<li>16 = Monitored Call Park</li>
+<li>17 = Menu</li>
+<li>18 = XML Application</li>
+<li>19 = Information</li>
+<li>20 = Message</li>
+</ul>
+</div>
+	
+<input type="button" id="lock_Account_Button" value="Lock Account Dropdown" onclick="account_Lock()" style="display:none">
+<input type="button" id="unlock_Account_Button" value="Unlock Account Dropdown" onclick="account_Unlock()" style="display:none">
 <!-- -->
 
 <div class="mpk_List_Class" style="display:none" id="top_form">
@@ -315,7 +514,11 @@ Select your Device:
 
 <div class="Output" style="display:none" id="pvalue_Output">
 <h2>PValue Output</h2>
-<p>test output</p>
+<p id="primary_Registration_Output"></p>
+<p id="Seconary_Registration_Output"></p>
+<p id="BLF_Output"></p>
+<p id="Firmware_Output"></p>
+<p id="Pvalues"></p>
 </div>
 </div>
  </body>
