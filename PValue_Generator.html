@@ -26,8 +26,15 @@ body {
 }
 
 .topnav a.active {
-  background-color: #04AA6D;
+  background-color: #40A5FF;
   color: white;
+}
+.keytype_Definitions {
+	float: center;
+}
+.Output {
+	float: right;
+	padding: 0px 200px;
 }
 </style>
   <script>
@@ -196,22 +203,14 @@ generate_ui();
      keyName.appendChild(keyNameText);
      row.appendChild(keyName);
 
-     let keyType = document.createElement("td");
-     let keyTypeDropdown = document.createElement("select");
+     let keyType = document.createElement("INPUT");
+	 keyType.setAttribute("type", "number");
+	 keyType.setAttribute("value", "1");
+	 row.appendChild(keyType);
 	 
 
-     for (let x = -1; x <= 20; x++) {
-	 
-      let option = document.createElement("option");
-      option.setAttribute("value", x);
-      let optionLabel = document.createTextNode("keytype number " + x);
-      option.appendChild(optionLabel);
-      keyTypeDropdown.appendChild(option);
-     }
-	 
-     keyTypeDropdown.setAttribute("name", "key_type_" + i);
-     keyType.appendChild(keyTypeDropdown);
-     row.appendChild(keyType);
+
+
 	 
 	 
 	 let accountType = document.createElement("td");
@@ -251,17 +250,17 @@ generate_ui();
 
      document.getElementById("the_thing").appendChild(row);
     }
-	//generate_ui is Jared's contribution to this project for getting started. Account field was added by me in process.
+	//generate_ui is Jared's contribution to this project for getting started. Account field was added by me in process and keyType field was modified to be number input.
 }
 
 function clear_Table() {
 var Table = document.getElementById("the_thing");
-Table.innerHTML = "";
+Table.innerHTML = "<tr><td>Key</td><td>Key Type</td><td>Account</td><td>Key Label</td><td>Key Value</td></tr>";
 }
 
 function clear_Table_Button() {
 var Table = document.getElementById("the_thing");
-Table.innerHTML = "";
+Table.innerHTML = "<tr><td>Key</td><td>Key Type</td><td>Account</td><td>Key Label</td><td>Key Value</td></tr>";
 generate_ui();
 }
 
@@ -271,6 +270,8 @@ function Submit_Output() {
 	secondary_Sip_Output();
 	BLF_Sip_Output();
 	Firmware_Output();
+	document.getElementById("Pvalues").innerHTML="";
+	form_Pvalue_Output();
 }
 function primary_Sip_Output() {
 	switch (primary_Registration.value) {
@@ -376,15 +377,79 @@ function account_Unlock() {
 	document.getElementById('unlock_Account_Button').style.display='none';
 	AccountLock=false;
 }
+function form_Pvalue_Output(){
+
+
+	for ( i=startMPK; i <= endMPK; i++) {
+		form_Pvalue_Output_Device();
+		document.getElementById("Pvalues").innerHTML+= "P" + pvalue1 + "=" + the_thing.value_1 +"<br>";
+		document.getElementById("Pvalues").innerHTML+= "P" + pvalue2 + "=" + "<br>";
+		document.getElementById("Pvalues").innerHTML+= "P" + pvalue3 + "=" + i + " pvalue_3" + "<br>";
+		document.getElementById("Pvalues").innerHTML+= "P" + pvalue4 + "=" + i + " pvalue_4" + "<br>";
+	}
+}
+function form_Pvalue_Output_Device(){
+	switch (myDevice.value) {
+		case '2100':
+			pvalue1="-UNKNOWN";
+			pvalue2="-UNKNOWN";
+			pvalue3="-UNKNOWN";
+			pvalue4="-UNKNOWN";
+			break;
+		case '2110':
+			pvalue1="-UNKNOWN";
+			pvalue2="-UNKNOWN";
+			pvalue3="-UNKNOWN";
+			pvalue4="-UNKNOWN";	
+			break;	
+		case '2120':
+			pvalue1="-UNKNOWN";
+			pvalue2="-UNKNOWN";
+			pvalue3="-UNKNOWN";
+			pvalue4="-UNKNOWN";
+			break;
+		case '2124':
+			pvalue1="-UNKNOWN";
+			pvalue2="-UNKNOWN";
+			pvalue3="-UNKNOWN";
+			pvalue4="-UNKNOWN";	
+			break;
+		case '2130':
+			pvalue1="-UNKNOWN";
+			pvalue2="-UNKNOWN";
+			pvalue3="-UNKNOWN";
+			pvalue4="-UNKNOWN";	
+			break;
+		case '2160':
+			pvalue1="-UNKNOWN";
+			pvalue2="-UNKNOWN";
+			pvalue3="-UNKNOWN";
+			pvalue4="-UNKNOWN";	
+			break;
+		case '2140':
+			pvalue1=23000 + i*5-5;
+			pvalue2=23000 + i*5-4;
+			pvalue3=23000 + i*5-3;
+			pvalue4=23000 + i*5-2;
+			break;
+		case 'D2':
+			pvalue1="-UNKNOWN";
+			pvalue2="-UNKNOWN";
+			pvalue3="-UNKNOWN";
+			pvalue4="-UNKNOWN";	
+			break;
+	}
+}
   </script>
  </head>
- <body>
+ <body style = "background: lightblue;">
+  <!-- this defines the current style of the page. Need to learn CSS to make things look less crap. -->
 <div class="topnav">
   <a href="./Menu.html">Home</a>
   <a class="active" href="./Pvalue_Generator.html">PValue Generator</a>
 </div>
- <div style = "background: lightblue;">
- <!-- this defines the current style of the page. Need to learn CSS to make things look less crap. -->
+ <div >
+
  
  <form id="device_Selection">
 Select your Device:
@@ -465,19 +530,19 @@ Select your Device:
 
 </form>
 
-<div id="keytype_Definitions_List" style="display:none">
+<div class="keytype_Definitions" id="keytype_Definitions_List" style="display:none">
 <ul>
 <li>-1 = None </li>
-<li>0 = Speed Dial </li>
-<li>1 = BLF</li>
-<li>2 = Presence Watcher</li>
-<li>3 = Eventlist BLF</li>
-<li>4 = Speed Dial via active account</li>
-<li>5 = Dial DTMF</li>
-<li>6 = Voice Mail</li>
-<li>7 = Call Return</li>
-<li>8 = Transfer</li>
-<li>9 = Call Park</li>
+<li> 0 = Speed Dial </li>
+<li> 1 = BLF</li>
+<li> 2 = Presence Watcher</li>
+<li> 3 = Eventlist BLF</li>
+<li> 4 = Speed Dial via active account</li>
+<li> 5 = Dial DTMF</li>
+<li> 6 = Voice Mail</li>
+<li> 7 = Call Return</li>
+<li> 8 = Transfer</li>
+<li> 9 = Call Park</li>
 <li>10 = Intercom</li>
 <li>11 = LDAP Search</li>
 <li>12 = Conference</li>
@@ -497,21 +562,6 @@ Select your Device:
 <!-- -->
 
 <div class="mpk_List_Class" style="display:none" id="top_form">
-  <form id="mpk_List">
-   <table id="the_thing">
-    <tr>
-     <td>Key</td>
-     <td>Key Type</td>
-	 <td>Account</td>
-     <td>Key Label</td>
-     <td>Key Value</td>
-    </tr>
-   </table>
-   <button type="button" onclick="Submit_Output()">Submit</button>
-  </form>
-</div>
-<!-- Table that displays MPK keys -->
-
 <div class="Output" style="display:none" id="pvalue_Output">
 <h2>PValue Output</h2>
 <p id="primary_Registration_Output"></p>
@@ -520,6 +570,23 @@ Select your Device:
 <p id="Firmware_Output"></p>
 <p id="Pvalues"></p>
 </div>
+  <form id="mpk_List">
+   <table id="the_thing">
+    <tr>
+     <td>Key</td>
+     <td id="keyType_Table">Key Type</td>
+	 <td>Account</td>
+     <td>Key Label</td>
+     <td>Key Value</td>
+    </tr>
+   </table>
+   <button type="button" onclick="Submit_Output()">Submit</button>
+   
+  </form>
+</div>
+<!-- Table that displays MPK keys -->
+
+
 </div>
  </body>
 </html>
