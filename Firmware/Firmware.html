@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../PageStyles.css">
+<script>
+    function D2_Firmware_Download() {
+        switch(D2_Firmware_Menu.value) {
+            case '5-65':
+            document.getElementById("D2_Download_Link").href="D2/5-65/cytracomdxfw.bin"
+            break;
+            case '5-45':
+            document.getElementById("D2_Download_Link").href="D2/5-45/cytracomdxfw.bin"
+            break;
+            case '1-13':
+            document.getElementById("D2_Download_Link").href="D2/1-13/cytracomdxfw.bin"
+            break;
+        }
+    }
+
+    function GXP_Firmware_Download() {
+        switch (GXP_Firmware_Menu.value) {
+            case '11-48':
+                break;
+            case '11-10':
+                break;
+            case '9-127':
+                break;
+
+        }
+    }
+</script>
+</head>
+<body >
+
+<div class="topnav">
+  <a href="../index.html">Home</a>
+  <a href="../Pvalue_Generator.html">PValue Generator</a>
+  <a href="../Queuecallmetrics.html">Queue Call Metrics</a>
+  <a href="../phonebook_Generator.html">Phonebook Generator</a>
+  <a class= "active" href="./Firmware.html">Firmware</a>
+</div>
+
+<div class="firmware_menu">
+    Cytracom D2<select id="D2_Firmware_Menu" onchange="D2_Firmware_Download()">
+        <option value="5-65">1.0.5.65</option>
+        <option value="5-45">1.0.5.45</option>
+        <option value="1-13">1.0.1.13</option>
+    </select>
+    <a id="D2_Download_Link" href="D2/5-65/cytracomdxfw.bin" download target="_blank">Download Firmware</a>
+<br><br><br>
+    Grandstream GXP<select id="GXP_Firmware_Menu" onchange="GXP_Firmware_Download()">
+        <option value="11-48">1.0.11.48</option>
+        <option value="11-10">1.0.11.10</option>
+        <option value="9-127">1.0.9.127</option>
+    </select>
+    <a id="GXP_Download_Link" href="GXP/" download target="_blank">Download Firmware</a>
+<br><br><br>
+    DP 750 1.0.11.2 <a id="DP750_Download_Link" href="DP750/dp75xfw.bin" download target="_blank">Download Firmware</a>
+</div>
+<br><br><br>
+<h1><u>Firmware Path Notes</u></h1>
+<ul>
+    <li>&ltIP_OF_PAGE&gt/Firmware/&ltDevice&gt/&ltFirmware_Version&gt/cytracomdxfw.bin</li>
+    <li>Devices:</li>
+    <ul>
+        <li>D2</li>
+        <ul>
+            <li>5-65</li>
+            <li>5-45</li>
+            <li>1-13</li>
+        </ul>
+        <li>GXP</li>
+        <ul>
+            <li>11-48</li>
+            <li>11-10</li>
+            <li>9-127</li>
+        </ul>
+    </ul>
+    <li>Example:</li>
+    <ul>
+        <li>Testacom.com/Firmware/D2/5-65/cytracomdxfw.bin</li>
+        <li>Testacom.com/Firmware/GXP/11-48/cytracomdxfw.bin</li>
+        <li>Testacom.com/Firmware/DP750/dp75xfw.bin</li>
+    </ul>
+</ul>
+</body>
+</html>

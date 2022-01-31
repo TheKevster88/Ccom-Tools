@@ -37,3 +37,21 @@ body {
 .MainBackground { 
 	background: lightblue;
 }
+.Fixed_Issue {
+  color: green;
+}
+.firmware_menu {
+  text-align:center;
+  padding:300px
+  
+}
+.firmware_menu a {
+  background-color: #312dff;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  border-radius: 15px;
+  
+}

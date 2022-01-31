@@ -11,13 +11,160 @@
   <a href="./Pvalue_Generator.html">PValue Generator</a>
   <a href="./Queuecallmetrics.html">Queue Call Metrics</a>
   <a href="./phonebook_Generator.html">Phonebook Generator</a>
+  <a href="Firmware/Firmware.html">Firmware</a>
 </div>
 
 <div style="padding-left:16px">
-  <h2>Three Things</h2>
-  <p>1. Kicking Ass</p>
-  <p>2. TBD</p>
-  <p>3. Third Thing Here</p>
+
+  <!-- FEATURE REQUESTS -->
+  <h2><u>Planned Features</u></h2>
+
+  <h3>General Improvements</h3>
+  <ul>
+    <li>Header for each page is linked to a general file, so header code is not being 
+      reused for every page. Will save time if new pages are added so only one resource gets 
+      updated instead of going through every file
+    </li>
+  </ul>
+
+  <h3>Pvalue Generator</h3>
+  <ul>
+    <li>
+      Wifi option has access point configuration
+    </li>
+    <li>
+      2140 to have visual preview of key configurations.
+      Could expand to other phones with 8 key screens?
+    </li>
+    <li>
+      Save information to SQL database
+    </li>
+    <li>
+      During creation of device, MAC address is request information. 
+      During download, MAC address is default name, but can be changed.
+      </li>
+  </ul>
+
+  <h3>Queue Call Metrics</h3>
+  <ul>
+    <li>Ability to save reports in csv file</li>
+    <li>Possible database for appending weekly call information to?</li>
+    <li>API interaction to pull queue call information from specific queues and total agents 
+      to automatically calculate metrics and revised data
+    </li>
+  </ul>
+
+  <h3>Firmware Download Page</h3>
+  <ul>
+    <li>Create a basic firmware download page</li>
+    <li>Improve functionality by including dropdown for specific firmwares available 
+      to the site
+    </li>
+    <li>*Unlikely* implement JS that detects firmware of device connecting "ie .19 firmware* 
+      and redirect request automatically to 5.45 as 5.65 doesn't work as immediate upgrade.
+       0.19 to 5.45 would need to serve as step-up upgrade
+    </li>
+  </ul>
+
+
+  <!-- END OF FEATURE REQUESTS --> 
+  <!-- KNOWN ISSUES -->
+  <h2><u>Known Issues</u></h2>
+  <h3>Pvalue Generator</h3>
+  <ul>
+    <li>Forms doesn't save information when changing devices</li>
+    <li>For textarea in pvalue output, if any modifications are made in that space, the textarea now longer updates when hitting submit</li>
+  </ul>
+  <h3>Queue call metric calculator</h3>
+
+  <!-- END OF KNOWN ISSUES-->
+  <!-- VERSION HISTORY LIST-->
+  <h2><u>Version History / Updates</u></h2>
+  <ul>
+    <li>2.1.1</li>
+    <ul>
+      <li>Firmware page developed to working state. This is more functional than fw.cytracom.com as you are able to choose which firmware 
+        you want to download rather than only being able to get the latest fw version from a front facing perspective
+      </li>
+      <li class="Fixed_Issue">*FIXED* Hitting download xml before Submit xml doesn't populate xml file with information.</li>
+      <li>Pvalue Output for Pvalue Generator is now a text area for quicker copy paste</li>
+    </ul>
+  <li>2.1.0</li>
+<ul>
+  <li>Added Miniweb support for testing</li>
+  <ul>
+    <li>Added Provisioning folder path for testing provisioning</li>
+    <li>Other computers on network can connect to web page for use</li>
+    <li class="Fixed_Issue">*FIXED* Queue Call Metrics: when hitting enter for total calls in follow up, entire page resets
+      <br>-Changed final form to div as hitting enter was triggering a form submission and resetting
+       the entire page
+    </li>
+    <li>Main header menu at top added back in for navigation between home menu, queue call metrics, and Pvalue Generator</li>
+    <li>Home page now updated to include known issues, upcoming additions, and version history for documentation purposes</li>
+    <li>Phonebook generator and Firmware page created in basic form. These are not fully functional at this time</li>
+  </ul>
+    
+  <li>Pvalue Generator and Queue Call Metrics now has XML download with option for Custom 
+    Name Fields
+  </li>
+</ul>
+  <li>2.0.9</li>
+  <ul>
+    <li>Added XML download option for pvalue generator. Download name is set to 'Config.xml'</li>
+  </ul>
+  <li>2.0.8</li>
+  <ul>
+    <li>Multicast Paging listening options now added. This spans for all 10 addresses that can be programmed to a phone</li>
+  </ul>
+  <li>2.0.7</li>
+  <ul>
+    <li>D2 device registration options now includes wifi on override for testing purposes</li>
+  </ul>
+  <li>2.0.6</li>
+  <ul>
+    <li>Header to redirect to other pages temporarily removed to focus on Pvalue generator for further development</li>
+  </ul>
+  <li>2.0.5</li>
+  <ul>
+    <li>Clear output buttons added to hide outputs if not desired to be seen</li>
+  </ul>
+  <li>2.0.4</li>
+  <ul>
+    <li>XML Format output now added. This can be saved in a notepad file as .xml and uploaded directly into a device for immediate updates</li>
+    <li>Registration options now isolated to a show/hide button with more in depth options</li>
+    <ul>
+      <li>Accounts 2-4 now added for sip id, password, and name info. This expands out to registration server options as well</li>
+    </ul>
+  </ul>
+  <li>2.0.3</li>
+  <ul>
+    <li>MPK Pvalue outputs are now functional. Codes are basic on a per device basis as not all devices have same mpk codes</li>
+    <li>Reduced device list to 2130, 2140, 2160, and D2 as other devices are not used as often</li>
+    <li>Main page now has same styling as pvalue generator</li>
+    <li>Queue Call Metrics page created for first time. This page is designed to create revised queue call baselines if there are not 
+      enough calls for a given week. Only core issue is hitting enter for second form resets page. This is resolved in 2.1.0
+    </li>
+  </ul>
+  <li>2.0.2</li>
+  <ul>
+    <li>Key type starts on '1'</li>
+    <li>Pvalue output shifted to far right side of screen</li>
+    <li>First mpk pvalue tests performed, correct codes are not being generated on this version as output is UNKNOWN</li>
+  </ul>
+  <li>2.0.1</li>
+  <ul>
+    <li>Pvalue output now outputs proper pvalue codes for registration/firmware paths</li>
+    <li>Basic registration server options are now provided, along with BLF and firmware path</li>
+    <li>KeyType definitions added as a show/hide button with dropdown list</li>
+    <li>Header menu added to navigate between placeholder Home page and Pvalue Generator</li>
+    <li>Form reset and page Reset keys added.</li>
+  </ul>
+  <li>2.0.0</li>
+  <ul>
+    <li>First revision of GUI version of Pvalue Generator. Has basic Dropdown for device selection and table renders properly.</li>
+    <li>Output has no functionality other than placeholder text.</li>
+  </ul>
+</ul>
 </div>
 
 </body>

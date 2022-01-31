@@ -244,6 +244,7 @@ generate_ui();
 
 function Submit_Output() {
 	document.getElementById('pvalue_Output').style.display='block';
+	document.getElementById('Pvalue_Download_Content').style.display='block';
 	sip_Account_Reg_Pvalues();
 	sip_Credentials_Output();
 	primary_Sip_Output();
@@ -254,6 +255,10 @@ function Submit_Output() {
 	multicast_Pvalue_Output()
 	document.getElementById("Pvalues").innerHTML="";
 	form_Pvalue_Output();
+	var text_Pvalue_Output = document.getElementById("Pvalue_Download_Content").innerText;
+	document.getElementById("Pvalue_Output_Textarea").innerHTML = text_Pvalue_Output;
+	document.getElementById('Pvalue_Download_Content').style.display='block';
+	
 }
 function Submit_Output_XML() {
 	document.getElementById('pvalue_Output_XML').style.display='block';
@@ -841,10 +846,11 @@ function download(file, text) {
 
 // Start file download.
 function download_XML_File() {
+	Submit_Output_XML();
 	// Generate download of hello.txt 
 	// file with some content
 	var text = document.getElementById("XML_Download_Content").innerText;
-	var filename = "Config.xml";
+	var filename = document.getElementById('XML_Name_Download').value + ".xml";
 
 	download(filename, text);
 }
@@ -857,6 +863,7 @@ function download_XML_File() {
   <a class="active" href="./Pvalue_Generator.html">PValue Generator</a>
   <a href="./Queuecallmetrics.html">Queue Call Metrics</a>
   <a href="./phonebook_Generator.html">Phonebook Generator</a>
+  <a href="Firmware/Firmware.html">Firmware</a>
 </div>
  <div >
 	 
@@ -1042,6 +1049,8 @@ Select your Device:
 		<td><button type="button" onclick="pvalue_output_xml_hide()">Clear Pvalues (XML Format)</button></td>
 	   </tr>
 	   <tr>
+		<td>Download Name:</td>
+        <td><input type="input" value="Config" id="XML_Name_Download"></td>
 		   <td><button type="button" onclick="download_XML_File()" value="Download_XML">Download XML Output</button></td>
 	   </tr>
   </table>
@@ -1054,8 +1063,12 @@ Select your Device:
   </form>
 </div>
 <!-- Table that displays MPK keys -->
+
+
 <div class="Output" style="display:none" id="pvalue_Output">
 <h2>PValue Output</h2>
+<textarea id="Pvalue_Output_Textarea" name="Pvalue_Textarea" rows="30" cols="75" style="background-color:lightblue"></textarea>
+<div id="Pvalue_Download_Content">
 <p id="account_Name"></p>
 <p id="sip_ID"></p>
 <p id="sip_Password"></p>
@@ -1066,6 +1079,13 @@ Select your Device:
 <p id="multicast_Pvalues"></p>
 <p id="Pvalues"></p>
 </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <div class="Output" style="display:none" id="pvalue_Output_XML">
 <h2>Pvalue XML Output</h2>
@@ -1091,7 +1111,7 @@ Select your Device:
 
 
 
-</textarea>
+
 
 </div>
  </body>

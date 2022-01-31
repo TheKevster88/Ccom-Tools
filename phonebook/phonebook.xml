@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AddressBook>
+<pbgroup>
+<id>1</id>
+<name>Blacklist</name>
+</pbgroup>
+<pbgroup>
+<id>2</id>
+<name>Whitelist</name>
+</pbgroup>
+<Contact>
+<id>1</id>
+<FirstName>John</FirstName>
+<LastName>Doe</LastName>
+<Frequent>0</Frequent>
+<Phone type="Work">
+<phonenumber>1234567890</phonenumber>
+<accountindex>0</accountindex>
+</Phone>
+<Primary>0</Primary>
+<Company>Company</Company>
+<Department>Dep</Department>
+<Job>Job</Job>
+</Contact>
+</AddressBook>

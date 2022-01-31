@@ -10,6 +10,7 @@
   <a href="./Pvalue_Generator.html">PValue Generator</a>
   <a class="active"href="./Queuecallmetrics.html">Queue Call Metrics</a>
   <a href="./phonebook_Generator.html">Phonebook Generator</a>
+  <a href="Firmware/Firmware.html">Firmware</a>
 </div>
 
 
@@ -61,14 +62,14 @@ Minimum weekly calls
 </div>
 <div id="follow_Up_False" style="display:none">
 <p>You chose No.</p>
-<form>
+<div>
 How many Queue calls were there last week?
-<input type="number" value="1" id="follow_Up_Question_Input">
+<input type="number" value="1" id="follow_Up_Question_Input" onchange = "follow_Up_Question_Input_Submission()">
 <input type="button" value="submit" onclick="follow_Up_Question_Input_Submission()">
 <p id="Revised_Average"></p>
 <p id="Tier1_Follow_Up_Output"></p>
 <p id="Tier2_Follow_Up_Output"></p>
 <p id="Tier3_Follow_Up_Output"></p>
-</form>
+</div>
 </div>
 </body>
