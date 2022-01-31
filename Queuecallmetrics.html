@@ -1,7 +1,7 @@
 <html>
  <head>
 <link rel="stylesheet" href="PageStyles.css">
-<script src="Callcenter_Functions.js"></script>
+<script src="Queuecallmetrics_Javascript.js"></script>
 </head>
  <body class="MainBackground">
   <!-- this defines the current style of the page. Need to learn CSS to make things look less crap. -->
@@ -40,6 +40,7 @@ Minimum weekly calls
 <div id="call_Output" style="display:none" >
 <h2>Total Weekly Calls</h2>
 <p id="total_Calls_Output"></p>
+<p id="Daily_Average"></p>
 <p id="tier1_Total_Display"></p>
 <p id="tier2_Total_Display"></p>
 <p id="tier3_Total_Display"></p>
@@ -63,6 +64,7 @@ Minimum weekly calls
 How many Queue calls were there last week?
 <input type="number" value="1" id="follow_Up_Question_Input">
 <input type="button" value="submit" onclick="follow_Up_Question_Input_Submission()">
+<p id="Revised_Average"></p>
 <p id="Tier1_Follow_Up_Output"></p>
 <p id="Tier2_Follow_Up_Output"></p>
 <p id="Tier3_Follow_Up_Output"></p>

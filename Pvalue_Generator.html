@@ -28,7 +28,7 @@ Select your Device:
 
 </form>
 
-<form id="sidecar_Selection" onchange="device_Submission()" style="display:none">
+<form id="sidecar_Selection" onchange="sidecar_Selection_Update()" style="display:none">
 	Select the sidecar:
 		<select id="mySidecar">
 			<option value="1">Sidecar 1</option>
@@ -37,48 +37,73 @@ Select your Device:
 			<option value="4">Sidecar 4</option>
 			<option value="5">Sidecar 5</option>
 		</select>
-	<input type="button" value="Update Sidecar Selection" onclick="device_Submission()">
+	<input type="button" value="Update Sidecar Selection" onclick="sidecar_Selection_Update()">
 </form>
 
-<form id="registration_Servers" style="display:block">
+<form id="registration_Options" style="display:none">
+<input type="button" id="registration_Show_Button" value="Show Registration Options" onclick="registration_Show()">
+<input type="button" id="registration_Hide_Button" value="Hide Registration Options" onclick="registration_Hide()" style="display:none">
+</form>
+
+
+<form id="registration_Servers" style="display:none">
+	Account
+		<select id="account_Sip_Selection">
+			<option value="1">Account 1</option>
+			<option value="2">Account 2</option>
+			<option value="3">Account 3</option>
+			<option value="4">Account 4</option>
+		</select>
+		<br>
+	Name
+		<input type="text" id="account_Name_Input">
+		<br>
+	SIP User/Authenticate ID:
+		<input type="text" id="sip_ID_Input">
+		<br>
+	SIP Password:
+		<input type="text" id="sip_Password_Input">
+		<br>
 	Primary Registration:
 		<select id="primary_Registration">
+			<option value="None">None</option>
 			<option value="UDP5060">UDP:5060 register.cytracom.net</option>
 			<option value="UDP5062">UDP:5062 register.cytracom.net</option>
 			<option value="TCP5060">TCP:5060 register.cytracom.net</option>
-			<option value="None">None</option>
 		</select>
-	Secondary:
+		<br>
+	Secondary Registration:
 		<select id="secondary_Registration">
+			<option value="None">None</option>
 			<option value="KR1">kr1.cytracom.net</option>
 			<option value="Register5060">Register.cytracom.net:5060</option>
 			<option value="Register5062">Register.cytracom.net:5062</option>
-			<option value="None">None</option>
 		</select>
+		<br>
 	BLF Server:
 		<select id="blf_Registration">
+			<option value="None">None</option>
 			<option value="BLF">blf.cytracom.net</option>
 			<option value="Reg">register.cytracom.net</option>
-			<option value="None">None</option>
 		</select>
 </form>
 
 <form id="GXP_Firmware_Select" style="display:none">
 	Choose GXP Firmware:
 	<select id="GXP_Firmware">
+		<option value="None">None</option>
 		<option value="11.48">1.0.11.48</option>
 		<option value="11.10">1.0.11.10</option>
-		<option value="Nonr">None</option>
 	</select>
 </form>
 <form id="D2_Firmware_Select" style="display:none">
 	Choose D2 Firmware:
 	<select id="D2_Firmware">
+		<option value="None">None</option>
 		<option value="5.65">1.0.5.65</option>
 		<option value="5.48">1.0.5.48</option>
 		<option value="5.45">1.0.5.45</option>
 		<option value="1.13">1.0.1.13</option>
-		<option value="None">None</option>
 	</select>
 </form>
 
@@ -133,18 +158,38 @@ Select your Device:
     </tr>
    </table>
    <button type="button" onclick="Submit_Output()">Submit</button>
+   <button type="button" onclick="Submit_Output_XML()">Submit (XML Format)</button>
    
   </form>
 </div>
 <!-- Table that displays MPK keys -->
 <div class="Output" style="display:none" id="pvalue_Output">
 <h2>PValue Output</h2>
+<p id="account_Name"></p>
+<p id="sip_ID"></p>
+<p id="sip_Password"></p>
 <p id="primary_Registration_Output"></p>
 <p id="Seconary_Registration_Output"></p>
 <p id="BLF_Output"></p>
 <p id="Firmware_Output"></p>
-<p id="test_Table"></p>
 <p id="Pvalues"></p>
+</div>
+
+<div class="Output" style="display:none" id="pvalue_Output_XML">
+<h2>Pvalue XML Output</h2>
+<h3>Copy and save these pvalues as an xml file</h3>
+<p>&ltgs_provision&gt</p>
+<p>&ltconfig&gt</p>
+<p id="account_Name_XML"></p>
+<p id="sip_ID_XML"></p>
+<p id="sip_Password_XML"></p>
+<p id="primary_Registration_Output_XML"></p>
+<p id="Seconary_Registration_Output_XML"></p>
+<p id="BLF_Output_XML"></p>
+<p id="Firmware_Output_XML"></p>
+<p id="Pvalues_XML"></p>
+<p>&lt/config&gt</p>
+<p>&lt/gs_provision&gt</p>
 </div>
 
 </div>
