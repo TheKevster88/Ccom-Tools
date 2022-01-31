@@ -257,7 +257,7 @@ function Submit_Output() {
 	form_Pvalue_Output();
 	var text_Pvalue_Output = document.getElementById("Pvalue_Download_Content").innerText;
 	document.getElementById("Pvalue_Output_Textarea").innerHTML = text_Pvalue_Output;
-	document.getElementById('Pvalue_Download_Content').style.display='block';
+	document.getElementById('Pvalue_Download_Content').style.display='none';
 	
 }
 function Submit_Output_XML() {
@@ -1067,7 +1067,7 @@ Select your Device:
 
 <div class="Output" style="display:none" id="pvalue_Output">
 <h2>PValue Output</h2>
-<textarea id="Pvalue_Output_Textarea" name="Pvalue_Textarea" rows="30" cols="75" style="background-color:lightblue"></textarea>
+<textarea id="Pvalue_Output_Textarea" name="Pvalue_Textarea" rows="30" cols="75" style="background-color:lightblue" readonly></textarea>
 <div id="Pvalue_Download_Content">
 <p id="account_Name"></p>
 <p id="sip_ID"></p>
